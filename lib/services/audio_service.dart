@@ -19,7 +19,7 @@ enum SfxEvent { placement, boxComplete }
 /// preference never drift out of sync.
 ///
 /// Asset files:
-///   assets/audio/music/background.mp3   (looping background music)
+///   assets/audio/music/background.m4a   (looping background music)
 ///   assets/audio/sfx/yerlestirme.wav    (line drawn / any button tap)
 ///   assets/audio/sfx/dolma.mp3          (played when a box is captured)
 class AudioService {
@@ -72,7 +72,7 @@ class AudioService {
   Duration? _musicDuration;
   bool _restartingLoop = false;
 
-  static const _musicAsset = 'audio/music/background.mp3';
+  static const _musicAsset = 'audio/music/background.m4a';
   static const _sfxAssets = {
     SfxEvent.placement: 'audio/sfx/yerlestirme.wav',
     SfxEvent.boxComplete: 'audio/sfx/dolma.mp3',
@@ -124,6 +124,15 @@ class AudioService {
       // silently isn't playing on a given device.
       debugPrint('AudioService: setMusicEnabled($enabled) failed: $e');
     }
+  }
+
+  /// Browsers block audio until the user has interacted with the page, so
+  /// on web the startup `resume()` is rejected (or silently ignored) and
+  /// the music never starts. Call this from the first user gesture to
+  /// start it for real, regardless of what [_musicPlaying] believes.
+  Future<void> restartMusicAfterGesture() async {
+    _musicPlaying = false;
+    await setMusicEnabled(true);
   }
 
   Future<void> playSfx(SfxEvent event, {required bool enabled}) async {

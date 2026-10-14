@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -60,6 +61,14 @@ class _KareKapmacaAppState extends State<KareKapmacaApp> with WidgetsBindingObse
       if (_settings.musicEnabled) _audio.setMusicEnabled(true);
     });
     _ads.init();
+  }
+
+  bool _webAudioUnlocked = false;
+
+  void _unlockWebAudio() {
+    if (_webAudioUnlocked) return;
+    _webAudioUnlocked = true;
+    if (_settings.musicEnabled) _audio.restartMusicAfterGesture();
   }
 
   @override
@@ -122,10 +131,19 @@ class _KareKapmacaAppState extends State<KareKapmacaApp> with WidgetsBindingObse
             } else if (AppColors.isPremium) {
               backdrop = const SpaceBackground();
             }
-            if (backdrop == null) return child;
-            return Stack(
-              fit: StackFit.expand,
-              children: [backdrop, child],
+            final content = backdrop == null
+                ? child
+                : Stack(
+                    fit: StackFit.expand,
+                    children: [backdrop, child],
+                  );
+            if (!kIsWeb) return content;
+            // Web autoplay policy: music can only start after a user
+            // gesture, so retry it on the first tap anywhere in the app.
+            return Listener(
+              behavior: HitTestBehavior.translucent,
+              onPointerDown: (_) => _unlockWebAudio(),
+              child: content,
             );
           },
         ),
