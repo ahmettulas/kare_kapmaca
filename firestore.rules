@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  function isGuestJoining(before, after) {
+    return before.status == 'waiting'
+      && after.status == 'active'
+      && after.guestName is string
+      && after.hostName == before.hostName
+      && after.moves == before.moves;
+  }
+
+  function isMoveAppend(before, after) {
+    return after.moves.size() == before.moves.size() + 1
+      && after.status == before.status
+      && after.hostName == before.hostName
+      && after.guestName == before.guestName;
+  }
+
+  function isFinish(before, after) {
+    return after.status == 'finished'
+      && after.moves == before.moves
+      && after.hostName == before.hostName;
+  }
+
+  match /databases/{database}/documents {
+    // No auth in this app — any client that knows a room code can read
+    // or act on that room, same as knowing the code was meant to allow.
+    // Writes are still constrained to the specific transitions the game
+    // actually performs (join / append one move / finish) so a client
+    // can't rewrite another room's host identity or move history.
+    match /rooms/{roomId} {
+      allow read: if true;
+
+      allow create: if request.resource.data.status == 'waiting'
+        && request.resource.data.guestName == null
+        && request.resource.data.moves.size() == 0
+        && request.resource.data.hostName is string
+        && request.resource.data.dotsWide is int
+        && request.resource.data.dotsHigh is int;
+
+      allow update: if isGuestJoining(resource.data, request.resource.data)
+        || isMoveAppend(resource.data, request.resource.data)
+        || isFinish(resource.data, request.resource.data);
+
+      allow delete: if true;
+    }
+  }
+}

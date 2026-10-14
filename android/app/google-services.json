@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "571775294713",
+    "project_id": "dotboxes-e69a6",
+    "storage_bucket": "dotboxes-e69a6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571775294713:android:af9ab272851ee8f7085628",
+        "android_client_info": {
+          "package_name": "com.karekapmaca.kare_kapmaca"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxCF9C2x9RpprUxFUtDq7lGi5F38am_oQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
