@@ -61,6 +61,7 @@ class _KareKapmacaAppState extends State<KareKapmacaApp> with WidgetsBindingObse
       if (_settings.musicEnabled) _audio.setMusicEnabled(true);
     });
     _ads.init();
+    _rooms.cleanUpStaleRoom();
   }
 
   bool _webAudioUnlocked = false;

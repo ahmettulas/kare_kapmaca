@@ -57,13 +57,13 @@
 <p>Bu hizmetler kendi gizlilik politikalarına tabidir: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Gizlilik Politikası</a>.</p>
 
 <h2>Veri saklama</h2>
-<p>Bir oyun odası (isimler, fotoğraflar ve hamleler dahil), eşleşme bittiğinde veya oyunculardan biri ayrıldığında uygulama tarafından silinir. Uygulama çöker, kapatılır veya bağlantı koparsa, oda oluşturulduktan en geç 2 saat sonra sunucu tarafında otomatik olarak silinmek üzere işaretlenir ve Firestore tarafından kısa süre içinde (genellikle 24 saat içinde) kalıcı olarak kaldırılır. Kalıcı bir sunucu tarafı profil veya geçmiş tutulmaz.</p>
+<p>Bir oyun odası (isimler, fotoğraflar ve hamleler dahil), eşleşme bittiğinde veya oyunculardan biri ayrıldığında uygulama tarafından silinir. Uygulama çöker, zorla kapatılır veya bağlantı koparsa ve oda bu yüzden silinemezse, uygulama bir sonraki açılışında o odayı otomatik olarak siler. Uygulama bir daha hiç açılmazsa oda (isim ve varsa fotoğraf dahil) sunucuda kalabilir; bu tür kalıntı odaları periyodik olarak elle temizliyoruz ve talep halinde gecikmeden sileriz (bkz. Haklarınız). Kalıcı bir sunucu tarafı profil veya geçmiş tutulmaz.</p>
 
 <h2>Çocukların gizliliği</h2>
-<p>Uygulama çocuklar dahil her yaştan oyuncu tarafından oynanabilir. Bu yüzden tüm kullanıcılara çocuklara uygun muamele yapılır: hesap, e-posta, telefon veya konum istenmez; reklamlar kişiselleştirilmez ve yalnızca genel izleyiciye (G) uygun içerik gösterilir. Oyuncu adı ve isteğe bağlı fotoğraf yalnızca aktif oyun sırasında rakiple paylaşılır ve yukarıda açıklanan süre içinde silinir. Ebeveynler, fotoğraf seçmemeyi veya çevrimiçi mod yerine yerel modu kullanmayı tercih edebilir. Bir çocuğa ait verinin silinmesini istiyorsanız aşağıdaki adresten bize ulaşın.</p>
+<p>Uygulama çocuklar dahil her yaştan oyuncu tarafından oynanabilir. Bu yüzden tüm kullanıcılara çocuklara uygun muamele yapılır: hesap, e-posta, telefon veya konum istenmez; reklamlar kişiselleştirilmez ve yalnızca genel izleyiciye (G) uygun içerik gösterilir. Oyuncu adı ve isteğe bağlı fotoğraf yalnızca aktif oyun sırasında rakiple paylaşılır ve yukarıda açıklandığı şekilde silinir. Ebeveynler, fotoğraf seçmemeyi veya çevrimiçi mod yerine yerel modu kullanmayı tercih edebilir. Bir çocuğa ait verinin silinmesini istiyorsanız aşağıdaki adresten bize ulaşın.</p>
 
 <h2>Haklarınız</h2>
-<p>Cihazındaki yerel verileri (istatistik, ayarlar) uygulamayı kaldırarak tamamen silebilirsin. Sorular veya veri silme talepleri için bize ulaş:</p>
+<p>Cihazındaki yerel verileri (istatistik, ayarlar) uygulamayı kaldırarak tamamen silebilirsin. Sunucuda kalmış olabilecek bir odanın (isim/fotoğraf) silinmesini istersen, oyuncu adını ve yaklaşık oyun tarihini yazarak bize ulaş; ilgili odaları sileriz. Sorular veya veri silme talepleri için:</p>
 <p><strong>E-posta:</strong> <a href="mailto:ahmtuls5134@gmail.com">ahmtuls5134@gmail.com</a></p>
 
 <h2>Değişiklikler</h2>
@@ -98,13 +98,13 @@
 <p>These services are governed by their own privacy policies: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</p>
 
 <h2>Data retention</h2>
-<p>A game room (including names, photos and moves) is deleted by the app when a match ends or either player leaves. If the app crashes, is closed, or loses connection, the room is marked to expire at most 2 hours after it was created and is then permanently removed by Firestore shortly afterwards (typically within 24 hours). No persistent server-side profile or history is kept.</p>
+<p>A game room (including names, photos and moves) is deleted by the app when a match ends or either player leaves. If the app crashes, is force-closed, or loses connection so the room could not be deleted, the app deletes that room automatically the next time it is opened. If the app is never opened again, the room (including the name and any photo) may remain on the server; we periodically remove such leftover rooms manually and will delete them promptly on request (see Your rights). No persistent server-side profile or history is kept.</p>
 
 <h2>Children's privacy</h2>
-<p>The app can be played by people of all ages, including children, so every user is treated as a child for privacy purposes: no account, email, phone number or location is requested; ads are not personalized and are limited to general-audience (G) content. The player name and optional photo are shared only with the opponent during an active game and are deleted within the period described above. Parents may choose not to pick a photo, or to use local mode instead of online mode. To request deletion of a child's data, contact us below.</p>
+<p>The app can be played by people of all ages, including children, so every user is treated as a child for privacy purposes: no account, email, phone number or location is requested; ads are not personalized and are limited to general-audience (G) content. The player name and optional photo are shared only with the opponent during an active game and are deleted as described above. Parents may choose not to pick a photo, or to use local mode instead of online mode. To request deletion of a child's data, contact us below.</p>
 
 <h2>Your rights</h2>
-<p>You can delete all local data (stats, settings) by uninstalling the app. For questions or data-deletion requests, contact us:</p>
+<p>You can delete all local data (stats, settings) by uninstalling the app. To have a room that may have remained on the server (name/photo) deleted, contact us with your player name and the approximate date you played and we will delete the matching rooms. For questions or data-deletion requests:</p>
 <p><strong>Email:</strong> <a href="mailto:ahmtuls5134@gmail.com">ahmtuls5134@gmail.com</a></p>
 
 <h2>Changes</h2>
