@@ -156,6 +156,10 @@ class AppStrings {
   String get languageTurkish => _t('Turkish', 'Türkçe');
   String get themeLabel => _t('Theme', 'Tema');
   String get themeSheetTitle => _t('Choose a theme', 'Bir tema seç');
+  String get privacyPolicyLabel =>
+      _t('Privacy Policy', 'Gizlilik Politikası');
+  String get linkOpenError =>
+      _t("Couldn't open the link.", 'Bağlantı açılamadı.');
   String get versionFooter => 'Kare Kapmaca v1.0.0';
 
   // Online rooms

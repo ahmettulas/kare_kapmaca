@@ -28,6 +28,10 @@ class RoomService {
   // to already be initialized; only actually talking to Firestore does.
   FirebaseFirestore get _db => _firestoreOverride ?? FirebaseFirestore.instance;
 
+  /// Upper bound on how long a room document may live server-side.
+  /// Keep in sync with the retention period stated in the privacy policy.
+  static const roomTtl = Duration(hours: 2);
+
   CollectionReference<Map<String, dynamic>> get _rooms =>
       _db.collection('rooms');
 
@@ -81,6 +85,12 @@ class RoomService {
           'status': RoomStatus.waiting.name,
           'moves': <Map<String, dynamic>>[],
           'createdAt': FieldValue.serverTimestamp(),
+          // Firestore TTL policy on `expireAt` deletes rooms (and their
+          // avatar photos) that were never cleaned up by deleteRoom(),
+          // e.g. after a crash, force-quit or lost connection.
+          'expireAt': Timestamp.fromDate(
+            DateTime.now().add(roomTtl),
+          ),
         });
         return true;
       });

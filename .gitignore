@@ -53,3 +53,6 @@ app.*.map.json
 # Firebase CLI cache
 .firebase/
 .claude/settings.local.json
+
+# Gradle output outside the Flutter build dir
+/android/build/

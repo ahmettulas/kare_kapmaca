@@ -28,14 +28,19 @@ service cloud.firestore {
     // actually performs (join / append one move / finish) so a client
     // can't rewrite another room's host identity or move history.
     match /rooms/{roomId} {
-      allow read: if true;
+      // Only a single room can be fetched, and only by its exact code.
+      // Listing/querying the collection is blocked so nobody can scrape
+      // every active room's player names and avatar photos.
+      allow get: if true;
+      allow list: if false;
 
       allow create: if request.resource.data.status == 'waiting'
         && request.resource.data.guestName == null
         && request.resource.data.moves.size() == 0
         && request.resource.data.hostName is string
         && request.resource.data.dotsWide is int
-        && request.resource.data.dotsHigh is int;
+        && request.resource.data.dotsHigh is int
+        && request.resource.data.expireAt is timestamp;
 
       allow update: if isGuestJoining(resource.data, request.resource.data)
         || isMoveAppend(resource.data, request.resource.data)

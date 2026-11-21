@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../l10n/app_strings.dart';
 import '../services/audio_service.dart';
@@ -9,6 +10,22 @@ import '../theme/app_theme.dart';
 import '../theme/theme_presets.dart';
 import '../widgets/screen_backdrop.dart';
 import '../widgets/setup_header.dart';
+
+/// Same URL as the one entered in Play Console → App content → Privacy
+/// policy. Google requires the policy to be reachable from inside the app.
+const _privacyPolicyUrl =
+    'https://dotboxes-e69a6.web.app/privacy-policy.html';
+
+Future<void> _openPrivacyPolicy(BuildContext context, AppStrings t) async {
+  final messenger = ScaffoldMessenger.of(context);
+  final ok = await launchUrl(
+    Uri.parse(_privacyPolicyUrl),
+    mode: LaunchMode.externalApplication,
+  );
+  if (!ok) {
+    messenger.showSnackBar(SnackBar(content: Text(t.linkOpenError)));
+  }
+}
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -64,6 +81,13 @@ class SettingsScreen extends StatelessWidget {
                           settings.language == AppLanguage.tr,
                         ),
                         onTap: () => _showThemeSheet(context, settings, t),
+                      ),
+                      const SizedBox(height: 12),
+                      _ThemeTile(
+                        icon: Icons.privacy_tip_rounded,
+                        title: t.privacyPolicyLabel,
+                        currentThemeName: '',
+                        onTap: () => _openPrivacyPolicy(context, t),
                       ),
                       const SizedBox(height: 24),
                       Text(
@@ -214,11 +238,13 @@ class _SettingsTile extends StatelessWidget {
 
 class _ThemeTile extends StatelessWidget {
   const _ThemeTile({
+    this.icon = Icons.palette_rounded,
     required this.title,
     required this.currentThemeName,
     required this.onTap,
   });
 
+  final IconData icon;
   final String title;
   final String currentThemeName;
   final VoidCallback onTap;
@@ -237,7 +263,7 @@ class _ThemeTile extends StatelessWidget {
         child: Row(
           children: [
             Icon(
-              Icons.palette_rounded,
+              icon,
               color: AppColors.textSecondary,
               size: 20,
             ),
